@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <FirstLogonCommands>
+               <SynchronousCommand wcm:action="add">
+                    <Description>Set Static IP Address</Description>
+                    <Order>20</Order>
+                    <CommandLine>netsh interface ip set address name=&quot;Ethernet&quot; static 10.240.2.56 255.255.255.0 10.240.2.1</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Description>Set First DNS</Description>
+                    <Order>21</Order>
+                    <CommandLine>netsh interface ip set dnsservers &quot;Ethernet&quot; static 161.26.0.7 primary</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <Description>Set Second DNS</Description>
+                    <Order>22</Order>
+                    <CommandLine>netsh interface ip add dnsservers &quot;Ethernet&quot; 161.26.0.8</CommandLine>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>reg ADD HKLM\SYSTEM\CurrentControlSet\Control\Network\NewNetworkWindowOff /f</CommandLine>
+                    <Description>Disable network discovery prompt for all users</Description>
+                    <Order>10</Order>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+        </component>
+    </settings>
+</unattend>
